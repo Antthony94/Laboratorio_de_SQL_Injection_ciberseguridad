@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> Laboratorio de SQL Injection  Anthony Cordova</h1>
+            <p>Blue Team vs Red Team "Los duros"</p>
+        </div>
+
+        <div class="console-box">
+            <h3>🖥️ Consola de Base de Datos</h3>
+            <div class="code-block">
+                {% if query_log %}
+                    <span class="prefix">sql></span> {{ query_log }}
+                {% else %}
+                    <span class="comment"># Esperando ejecución...</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="login-box {{ status }}">
+            <form method="POST">
+                <div class="toggle-container">
+                    <label>Modo de Seguridad:</label>
+                    <select name="mode" id="mode">
+                        <option value="vulnerable" {% if mode == 'vulnerable' %}selected{% endif %}>🔴 VULNERABLE</option>
+                        <option value="secure" {% if mode == 'secure' %}selected{% endif %}>🟢 SEGURO (PATCHED)</option>
+                    </select>
+                </div>
+                
+                <input type="text" name="username" placeholder="Usuario" autocomplete="off">
+                <input type="password" name="password" placeholder="Contraseña">
+                <button type="submit">INICIAR SESIÓN</button>
+            </form>
+            
+            {% if result_msg %}
+            <div class="result">
+                {{ result_msg }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
